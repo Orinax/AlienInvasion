@@ -32,7 +32,7 @@ class Settings():
         """Initialize settings taht change throughout the game."""
         self.ship_speed_factor = 1
         self.bullet_speed_factor = 1
-        self.alien_speed_factor = .2
+        self.alien_speed_factor = 1
 
         # fleet_direction of 1 represents right; -1 represents left.
         self.fleet_direction = 1
