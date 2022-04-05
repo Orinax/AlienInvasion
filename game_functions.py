@@ -6,7 +6,7 @@ from alien import Alien
 
 
 def check_keydown_events(event, ai_settings, screen, stats, ship, aliens,
-                         bullets):
+                         bullets, sb):
     """Respond to keypresses."""
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
@@ -17,7 +17,7 @@ def check_keydown_events(event, ai_settings, screen, stats, ship, aliens,
     elif event.key == pygame.K_q:
         sys.exit()
     elif event.key == pygame.K_p:
-        start_game(ai_settings, screen, stats, ship, aliens, bullets)
+        start_game(ai_settings, screen, stats, ship, aliens, bullets, sb)
 
 
 def fire_bullet(ai_settings, screen, ship, bullets):
@@ -36,32 +36,32 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def check_events(ai_settings, screen, stats, sb, play_button, ship,
-                 aliens, bullets):
+def check_events(ai_settings, screen, stats, play_button, ship,
+                 aliens, bullets, sb):
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, screen, stats, ship,
-                                 aliens, bullets)
+                                 aliens, bullets, sb)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             check_play_button(ai_settings, screen, stats, play_button,
-                              ship, sb, aliens, bullets, mouse_x, mouse_y)
+                              ship, aliens, bullets, sb, mouse_x, mouse_y)
 
 
-def check_play_button(ai_settings, screen, stats, play_button, ship, sb,
-                      aliens, bullets, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, play_button, ship,
+                      aliens, bullets, sb, mouse_x, mouse_y):
     """Start a new game when the player clicks PLay."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
-        start_game(ai_settings, screen, stats, sb, ship, aliens, bullets)
+        start_game(ai_settings, screen, stats, ship, aliens, bullets, sb)
 
 
-def start_game(ai_settings, screen, stats, sb, ship, aliens, bullets):
+def start_game(ai_settings, screen, stats, ship, aliens, bullets, sb):
     # Reset the game settings.
     ai_settings.initialize_dynamic_settings()
 
